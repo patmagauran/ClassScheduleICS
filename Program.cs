@@ -36,25 +36,25 @@ class ClassScheduleConvertor
                     List<WeekDay> days = new List<WeekDay>();
                     String daysSt = classev.days.ToUpper();
                     DateOnly startDay;
-                    if (daysSt.Contains("R"))
+                    if (daysSt.Contains("T"))
                     {
-                        startDay = DateOnly.Parse("2022-08-25");
-                    }
-                    else if (daysSt.Contains("F"))
-                    {
-                        startDay = DateOnly.Parse("2022-08-26");
-                    }
-                    else if (daysSt.Contains("M"))
-                    {
-                        startDay = DateOnly.Parse("2022-08-29");
-                    }
-                    else if (daysSt.Contains("T"))
-                    {
-                        startDay = DateOnly.Parse("2022-08-30");
+                        startDay = DateOnly.Parse("2023-01-17");
                     }
                     else if (daysSt.Contains("W"))
                     {
-                        startDay = DateOnly.Parse("2022-08-31");
+                        startDay = DateOnly.Parse("2023-01-18");
+                    }
+                    else if (daysSt.Contains("R"))
+                    {
+                        startDay = DateOnly.Parse("2023-01-19");
+                    }
+                    else if (daysSt.Contains("F"))
+                    {
+                        startDay = DateOnly.Parse("2023-01-20");
+                    }
+                    else if (daysSt.Contains("M"))
+                    {
+                        startDay = DateOnly.Parse("2023-01-23");
                     }
                     else
                     {
@@ -87,8 +87,12 @@ class ClassScheduleConvertor
                     //days.Sort();
 
                     // The first instance of an event taking place on July 1, 2016 between 07:00 and 08:00.
-                    String name = classev.courseNo;
+                    String name = classev.courseSub;
                     if (classev.courseName.Length != 0)
+                    {
+                        name += "-" + classev.courseNo;
+                    }
+                    if (classev.courseNo.Length != 0)
                     {
                         name += ": " + classev.courseName;
                     }
