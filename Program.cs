@@ -116,7 +116,7 @@ class ClassScheduleConvertor
                     var recurrenceRule = new RecurrencePattern(FrequencyType.Weekly, interval: 1)
                     {
                         ByDay = days,
-                        Until = DateTime.Parse("2022-12-16T23:59")
+                        Until = DateTime.Parse("2023-05-02T23:59")
                     };
 
                     vEvent.RecurrenceRules = new List<RecurrencePattern> { recurrenceRule };
