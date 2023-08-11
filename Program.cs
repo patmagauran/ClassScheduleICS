@@ -38,23 +38,23 @@ class ClassScheduleConvertor
                     DateOnly startDay;
                     if (daysSt.Contains("T"))
                     {
-                        startDay = DateOnly.Parse("2023-01-17");
+                        startDay = DateOnly.Parse("2023-08-29");
                     }
                     else if (daysSt.Contains("W"))
                     {
-                        startDay = DateOnly.Parse("2023-01-18");
+                        startDay = DateOnly.Parse("2023-08-30");
                     }
                     else if (daysSt.Contains("R"))
                     {
-                        startDay = DateOnly.Parse("2023-01-19");
+                        startDay = DateOnly.Parse("2023-08-31");
                     }
                     else if (daysSt.Contains("F"))
                     {
-                        startDay = DateOnly.Parse("2023-01-20");
+                        startDay = DateOnly.Parse("2023-08-25");
                     }
                     else if (daysSt.Contains("M"))
                     {
-                        startDay = DateOnly.Parse("2023-01-23");
+                        startDay = DateOnly.Parse("2023-08-28");
                     }
                     else
                     {
@@ -116,11 +116,70 @@ class ClassScheduleConvertor
                     var recurrenceRule = new RecurrencePattern(FrequencyType.Weekly, interval: 1)
                     {
                         ByDay = days,
-                        Until = DateTime.Parse("2023-05-02T23:59")
+                        Until = DateTime.Parse("2023-12-08T23:59")
                     };
 
                     vEvent.RecurrenceRules = new List<RecurrencePattern> { recurrenceRule };
                     calendar.Events.Add(vEvent);
+                    if (daysSt.Contains("R"))
+                    {
+                        DateOnly specDate = DateOnly.Parse("2023-08-24");
+                        switch (classev.start.Hour)
+                        {
+                            case 8:
+                                {
+                                    startDate = specDate.ToDateTime(new TimeOnly(11, 10));
+                                    endDate = specDate.ToDateTime(new TimeOnly(11, 40));
+                                    break;
+                                }
+                            case 9:
+                                {
+                                    startDate = specDate.ToDateTime(new TimeOnly(11, 50));
+                                    endDate = specDate.ToDateTime(new TimeOnly(12, 20));
+                                    break;
+                                }
+                            case 10:
+                                {
+                                    startDate = specDate.ToDateTime(new TimeOnly(12, 30));
+                                    endDate = specDate.ToDateTime(new TimeOnly(13, 0));
+                                    break;
+                                }
+                            case 12:
+                                {
+                                    startDate = specDate.ToDateTime(new TimeOnly(13, 10));
+                                    endDate = specDate.ToDateTime(new TimeOnly(13, 40));
+                                    break;
+                                }
+                            case 13:
+                                {
+                                    startDate = specDate.ToDateTime(new TimeOnly(13, 50));
+                                    endDate = specDate.ToDateTime(new TimeOnly(14, 20));
+                                    break;
+                                }
+                            case 15:
+                                {
+                                    startDate = specDate.ToDateTime(new TimeOnly(14, 30));
+                                    endDate = specDate.ToDateTime(new TimeOnly(15, 0));
+                                    break;
+                                }
+                            default:
+                                {
+                                    continue;
+                                }
+                        }
+                        var vEvent2 = new CalendarEvent
+                        {
+                            Start = new CalDateTime(startDate, tz),
+                            End = new CalDateTime(endDate, tz),
+                            Location = location,
+                            Summary = name,
+                            Status = "Free"
+                        };
+                        vEvent2.AddProperty("X-MICROSOFT-CDO-BUSYSTATUS", "FREE");
+                        calendar.Events.Add(vEvent2);
+
+                    }
+
                 }
 
                 foreach (KeyValuePair<string, Ical.Net.Calendar> kvp in cals)
